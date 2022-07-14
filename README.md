@@ -11,3 +11,6 @@ Main change is using dynamic import to conditionally load React. https://github.
 
 React 18 works fine. WTF?
 
+Note: React 18 has `exports`. React 17 does not. Related? Not sure...
+
+https://github.com/facebook/react/blob/v18.0.0/packages/react/package.json#L22-L30
