@@ -3,29 +3,36 @@ import path from 'path'
 import react from '@vitejs/plugin-react'
 
 const debug = console.log
-console.log('Vite!')
 
-export const React18 = () => {
-  console.log('REACT 18')
+let shouldTransform = false
+try {
+  const react = require('react')
+  shouldTransform = react.version.startsWith('17')
+} catch (e) {
+  // not using react
+}
+
+function plugin () {
   return {
-    name: 'cypress:missing-react-dom-client',
-    resolveId (source) {
-      debug('source is %s', source)
-      if (source === 'react-dom/client') {
-        try {
-          return require.resolve('react-dom/client')
-        } catch (e) {
-          debug('error resolving %s, falling back to client/reactDomClientPlaceholder.js', source)
-
-          // This is not a react 18 project, need to stub out to avoid error
-          return path.resolve(__dirname, 'placeholder.js')
-        }
+    enforce: 'pre',
+    transform: (code, id) => {
+      if (shouldTransform && id.includes('cypress_react.js')) {
+        return code.replace('react-dom/client', 'react-dom')
       }
-    },
+    }
   }
+}
+
+const exclude = []
+
+if (shouldTransform) {
+  exclude.push('react-dom/client')
 }
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [React18(), react()],
+  plugins: [plugin(), react()],
+  optimizeDeps: {
+    exclude
+  }
 })
