@@ -1,0 +1,21 @@
+{
+  "name": "react-vite",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "^1.3.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "devDependencies": {
+    "@types/react": "^17.0.2",
+    "@types/react-dom": "^17.0.2",
+    "cypress": "https://cdn.cypress.io/beta/npm/10.3.1/linux-x64/lmiller/21381-react-18-with-ignore-f01cd868cde11601ecf9529ce408e70485a653c4/cypress.tgz",
+    "vite": "2.9.5"
+  }
+}
